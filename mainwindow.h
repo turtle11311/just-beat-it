@@ -2,8 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QStringList>
-#include <QStringListModel>
+#include <QString>
+#include <QMap>
 
 namespace Ui {
 class MainWindow;
@@ -18,6 +18,7 @@ public:
     ~MainWindow();
 
 private:
+
     Ui::MainWindow *ui;
 };
 
