@@ -20,7 +20,7 @@ signals:
     void room();
 
 private slots:
-    void setAccount(QString account);
+    void loginSuccess();
     void on_logoutLink_linkActivated(const QString &link);
     void on_mainButton_clicked();
 

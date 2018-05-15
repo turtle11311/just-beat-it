@@ -37,20 +37,24 @@ SOURCES += \
     menu.cpp \
     member.cpp \
     mysql.cpp \
-    about.cpp
+    about.cpp \
+    room.cpp
 
 HEADERS += \
     mainwindow.h \
     menu.h \
     member.h \
     mysql.h \
-    about.h
+    about.h \
+    room.h \
+    properties.h
 
 FORMS += \
     mainwindow.ui \
     menu.ui \
     member.ui \
-    about.ui
+    about.ui \
+    room.ui
 
 RESOURCES += \
     resource.qrc

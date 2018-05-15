@@ -2,16 +2,26 @@
 #include "ui_member.h"
 #include <QMessageBox>
 #include <QRegExp>
+#include "properties.h"
 #include "mysql.h"
 #include "mainwindow.h"
+
+extern Properties properties;
 
 Member::Member(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Member)
 {
     ui->setupUi(this);
-    connect(this,SIGNAL(loginSuccess(QString)),parent,SLOT(loginSuccess(QString)));
+    connect(this,SIGNAL(loginSuccess()),parent,SLOT(loginSuccess()));
     connect(ui->exitButton,SIGNAL(clicked()),parent,SLOT(formClose()));
+    QFont font;
+    font = ui->account->font();
+    font.setCapitalization(QFont::AllUppercase);
+    ui->account->setFont(font);
+    font = ui->password->font();
+    font.setCapitalization(QFont::AllUppercase);
+    ui->password->setFont(font);
 }
 
 Member::~Member()
@@ -23,7 +33,9 @@ void Member::on_enterButton_clicked()
 {
     try
     {
-        QRegExp regex("^[a-zA-Z0-9]{5,15}$");
+        ui->account->setText(ui->account->text().toUpper());
+        ui->password->setText(ui->password->text().toUpper());
+        QRegExp regex("^[A-Z0-9]{5,15}$");
         if(!regex.exactMatch(ui->account->text()) || !regex.exactMatch(ui->password->text()))
         {
             QMessageBox::critical(this,"","帳號密碼須為長度5~15英數組合");
@@ -36,7 +48,8 @@ void Member::on_enterButton_clicked()
             result = db.Query("select count(*) from member where account=? and password=?" , QVector<QVariant>({ ui->account->text() , ui->password->text() }));
             if(result[0][0].toInt() == 1)
             {
-                emit loginSuccess(ui->account->text());
+                properties.account = ui->account->text();
+                emit loginSuccess();
             }
             else
             {
@@ -52,7 +65,7 @@ void Member::on_enterButton_clicked()
             }
             else
             {
-                result = db.Query("insert into member( account , password ) values( ? , ? )" , QVector<QVariant>({ ui->account->text() , ui->password->text() }));
+                db.Query("insert into member( account , password ) values( ? , ? )" , QVector<QVariant>({ ui->account->text() , ui->password->text() }));
                 QMessageBox::information(this,"","註冊成功");
                 emit ui->exitButton->click();
             }
