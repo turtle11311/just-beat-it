@@ -2,8 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QStringList>
-#include <QStringListModel>
+#include <QString>
+#include <QMap>
 
 namespace Ui {
 class MainWindow;
@@ -19,6 +19,16 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+signals:
+    void setAccount(QString account);
+
+private slots:
+    void login();
+    void room();
+    void about();
+    void loginSuccess(QString account);
+    void formClose();
 };
 
 #endif // MAINWINDOW_H
