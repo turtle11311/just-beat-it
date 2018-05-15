@@ -1,5 +1,8 @@
 #include "menu.h"
+#include "properties.h"
 #include "ui_menu.h"
+
+extern Properties properties;
 
 Menu::Menu(QWidget *parent) :
     QWidget(parent),
@@ -14,12 +17,12 @@ Menu::Menu(QWidget *parent) :
     ui->logoutLink->setVisible(false);
 }
 
-void Menu::setAccount(QString account)
+void Menu::loginSuccess()
 {
-    ui->account->setText(account);
+    ui->account->setText(properties.account);
     ui->account->setVisible(true);
     ui->logoutLink->setVisible(true);
-    ui->mainButton->setText("開始遊戲");
+    ui->mainButton->setText("遊戲大廳");
 }
 
 Menu::~Menu()
@@ -29,9 +32,11 @@ Menu::~Menu()
 
 void Menu::on_logoutLink_linkActivated(const QString &link)
 {
+    ui->account->setText("");
     ui->account->setVisible(false);
     ui->logoutLink->setVisible(false);
     ui->mainButton->setText("登入");
+    properties.account = "";
 }
 
 void Menu::on_mainButton_clicked()

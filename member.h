@@ -16,7 +16,7 @@ public:
     ~Member();
 
 signals:
-    void loginSuccess(QString account);
+    void loginSuccess();
 
 private slots:
     void on_enterButton_clicked();

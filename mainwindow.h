@@ -21,13 +21,13 @@ private:
     Ui::MainWindow *ui;
 
 signals:
-    void setAccount(QString account);
+    void updateAccount();
 
 private slots:
     void login();
     void room();
     void about();
-    void loginSuccess(QString account);
+    void loginSuccess();
     void formClose();
 };
 

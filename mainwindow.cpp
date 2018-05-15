@@ -1,9 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "properties.h"
 #include "menu.h"
 #include "member.h"
+#include "room.h"
 #include "about.h"
 #include <QDebug>
+
+extern Properties properties;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setFixedSize(width(),height());
     setWindowTitle("Just Beat it");
     ui->stackedWidget->addWidget(new Menu(this));    
-    connect(this,SIGNAL(setAccount(QString)),ui->stackedWidget->currentWidget(),SLOT(setAccount(QString)));
+    connect(this,SIGNAL(updateAccount()),ui->stackedWidget->currentWidget(),SLOT(loginSuccess()));
 }
 
 MainWindow::~MainWindow()
@@ -29,8 +33,8 @@ void MainWindow::login()
 
 void MainWindow::room()
 {
-    //ui->stackedWidget->addWidget(new Room(this));
-    //ui->stackedWidget->setCurrentIndex(1);
+    ui->stackedWidget->addWidget(new Room(this));
+    ui->stackedWidget->setCurrentIndex(1);
 }
 
 void MainWindow::about()
@@ -39,15 +43,16 @@ void MainWindow::about()
     ui->stackedWidget->setCurrentIndex(1);
 }
 
-void MainWindow::loginSuccess(QString account)
+void MainWindow::loginSuccess()
 {
     formClose();
-    emit setAccount(account);
+    emit updateAccount();
 }
 
 void MainWindow::formClose()
 {
     QWidget* widget = ui->stackedWidget->currentWidget();
     ui->stackedWidget->removeWidget(widget);
+    delete widget;
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex() - 1);
 }
