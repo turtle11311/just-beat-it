@@ -32,33 +32,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
+    main.cpp \
+    mainwindow.cpp \
     menu.cpp \
     member.cpp \
     mysql.cpp \
-    about.cpp \
-    about.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    member.cpp \
-    menu.cpp \
-    mysql.cpp
+    about.cpp
 
 HEADERS += \
-        mainwindow.h \
+    mainwindow.h \
     menu.h \
     member.h \
     mysql.h \
-    about.h \
-    about.h \
-    mainwindow.h \
-    member.h \
-    menu.h \
-    mysql.h
+    about.h
 
 FORMS += \
-        mainwindow.ui \
+    mainwindow.ui \
     menu.ui \
     member.ui \
     about.ui

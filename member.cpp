@@ -34,7 +34,6 @@ void Member::on_enterButton_clicked()
         if(ui->registerLink->isVisible())
         {
             result = db.Query("select count(*) from member where account=? and password=?" , QVector<QVariant>({ ui->account->text() , ui->password->text() }));
-            qDebug()<<result[0][0].toString();
             if(result[0][0].toInt() == 1)
             {
                 emit loginSuccess(ui->account->text());
