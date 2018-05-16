@@ -20,6 +20,16 @@ public:
 private:
 
     Ui::MainWindow *ui;
+
+signals:
+    void updateAccount();
+
+private slots:
+    void login();
+    void room();
+    void about();
+    void loginSuccess();
+    void formClose();
 };
 
 #endif // MAINWINDOW_H
