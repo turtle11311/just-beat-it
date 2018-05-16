@@ -1,5 +1,8 @@
 #include "mainwindow.h"
+#include "properties.h"
 #include <QApplication>
+
+Properties properties;
 
 int main(int argc, char *argv[])
 {

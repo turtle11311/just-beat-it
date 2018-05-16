@@ -1,0 +1,9 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>sources/images/logo.png</file>
+    <file>sources/images/about1.png</file>
+    <file>sources/images/about2.png</file>
+    <file>sources/images/about3.png</file>
+    <file>sources/images/about4.png</file>
+</qresource>
+</RCC>
