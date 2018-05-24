@@ -1,6 +1,7 @@
 #include "room.h"
 #include "mysql.h"
 #include "properties.h"
+#include "mainwindow.h"
 #include <QMessageBox>
 #include "ui_room.h"
 
@@ -21,6 +22,7 @@ Room::Room(QWidget *parent) :
     timer.setSingleShot(false);
     connect(&timer,SIGNAL(timeout()),this,SLOT(timeout()));    
     connect(ui->exitButton,SIGNAL(clicked()),parent,SLOT(formClose()));
+    connect(ui->musicButton,SIGNAL(clicked()),parent,SLOT(selectMusic()));
     ui->players->setVisible(false);
 }
 
@@ -199,4 +201,8 @@ void Room::on_startButton_clicked()
     {
         QMessageBox::critical(this,"Database Error",ex.message);
     }
+}
+
+void Room::on_musicButton_clicked()
+{
 }

@@ -30,6 +30,7 @@ private slots:
     void about();
     void loginSuccess();
     void formClose();
+    void selectMusic();
 };
 
 #endif // MAINWINDOW_H

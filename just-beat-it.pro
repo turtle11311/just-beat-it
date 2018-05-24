@@ -40,7 +40,9 @@ SOURCES += \
     about.cpp \
     room.cpp \
     youtubesearch.cpp \
-    selectmusic.cpp
+    selectmusic.cpp \
+    mediainfo.cpp \
+    youtubemedialistmodel.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -51,7 +53,9 @@ HEADERS += \
     room.h \
     properties.h \
     youtubesearch.h \
-    selectmusic.h
+    selectmusic.h \
+    mediainfo.h \
+    youtubemedialistmodel.h
 
 FORMS += \
     mainwindow.ui \

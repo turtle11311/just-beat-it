@@ -24,6 +24,7 @@ private slots:
     void on_refreshButton_clicked();
     void on_leaveButton_clicked();
     void on_startButton_clicked();
+    void on_musicButton_clicked();
 
 private:
     Ui::Room *ui;

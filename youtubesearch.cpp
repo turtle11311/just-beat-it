@@ -1,5 +1,8 @@
 #include "youtubesearch.h"
+
+#include <QJsonArray>
 #include <QJsonDocument>
+#include <QJsonObject>
 #include <QDebug>
 
 YoutubeSearch::YoutubeSearch(const QString &query, const QString &API_KEY, QObject *parent)
@@ -10,7 +13,7 @@ YoutubeSearch::YoutubeSearch(const QString &query, const QString &API_KEY, QObje
     curl_easy_setopt(mCurl, CURLOPT_WRITEFUNCTION, YoutubeSearch::write_res_data);
 }
 
-void YoutubeSearch::search(size_t count)
+QList<MediaInfo> YoutubeSearch::search(size_t count)
 {
     QString url;
     url.sprintf("%s?&key=%s&q=%s&maxResults=%lu&type=video&part=snippet",
@@ -22,7 +25,10 @@ void YoutubeSearch::search(size_t count)
         qFatal("%s", curl_easy_strerror(res));
     }
     QJsonDocument json_doc = QJsonDocument::fromJson(_response.toUtf8().data());
-    qDebug() << json_doc;
+    QList<MediaInfo> items;
+    for(QJsonValueRef item : json_doc["items"].toArray())
+        items.append(MediaInfo(item.toObject()));
+    return items;
 }
 
 size_t YoutubeSearch::write_res_data(void *ptr, size_t size, size_t nmemb, QString *str)

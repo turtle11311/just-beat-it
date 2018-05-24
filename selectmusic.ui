@@ -22,7 +22,7 @@
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="2,10,1">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="2,10,1,0">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0">
      <item>
@@ -64,6 +64,13 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>Select</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setFixedSize(width(),height());
     setWindowTitle("Just Beat it");
-    ui->stackedWidget->addWidget(new Menu(this));    
+    ui->stackedWidget->addWidget(new Menu(this));
     connect(this,SIGNAL(updateAccount()),ui->stackedWidget->currentWidget(),SLOT(loginSuccess()));
 }
 
@@ -50,10 +50,17 @@ void MainWindow::loginSuccess()
     emit updateAccount();
 }
 
+void MainWindow::selectMusic()
+{
+    ui->stackedWidget->addWidget(new SelectMusic(this));
+    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex() + 1);
+}
+
 void MainWindow::formClose()
 {
     QWidget* widget = ui->stackedWidget->currentWidget();
     ui->stackedWidget->removeWidget(widget);
     delete widget;
     ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex() - 1);
+
 }

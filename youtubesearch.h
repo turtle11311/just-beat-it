@@ -2,14 +2,16 @@
 #define YOUTUBESEARCH_H
 
 #include <QObject>
+#include <QList>
 #include <curl/curl.h>
+#include "mediainfo.h"
 
 class YoutubeSearch : public QObject
 {
     Q_OBJECT
 public:
     explicit YoutubeSearch(const QString &query, const QString& API_KEY, QObject *parent = nullptr);
-    void search(size_t count);
+    QList<MediaInfo> search(size_t count);
     ~YoutubeSearch();
 signals:
 
