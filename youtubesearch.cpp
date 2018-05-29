@@ -26,7 +26,7 @@ QList<MediaInfo> YoutubeSearch::search(size_t count)
     }
     QJsonDocument json_doc = QJsonDocument::fromJson(_response.toUtf8().data());
     QList<MediaInfo> items;
-    for(QJsonValueRef item : json_doc["items"].toArray())
+    for(QJsonValueRef item : json_doc.object().value("items").toArray())
         items.append(MediaInfo(item.toObject()));
     return items;
 }
