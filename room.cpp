@@ -202,7 +202,3 @@ void Room::on_startButton_clicked()
         QMessageBox::critical(this,"Database Error",ex.message);
     }
 }
-
-void Room::on_musicButton_clicked()
-{
-}

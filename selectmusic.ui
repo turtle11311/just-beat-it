@@ -22,18 +22,11 @@
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout" stretch="2,10,0">
+  <layout class="QVBoxLayout" name="verticalLayout" stretch="2,10,0,0">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,0">
      <item>
-      <widget class="QPlainTextEdit" name="queryText">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-      </widget>
+      <widget class="QLineEdit" name="queryText"/>
      </item>
      <item>
       <widget class="QPushButton" name="searchButton">
@@ -49,8 +42,18 @@
    </item>
    <item>
     <widget class="QPushButton" name="selectMusicButton">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="text">
       <string>Select</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="cancelButton">
+     <property name="text">
+      <string>Cancel</string>
      </property>
     </widget>
    </item>

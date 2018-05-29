@@ -23,6 +23,8 @@ private slots:
 
     void on_selectMusicButton_clicked();
 
+    void on_searchResultView_clicked(const QModelIndex &index);
+
 private:
     Ui::SelectMusic *ui;
     YoutubeSearch *yt;
