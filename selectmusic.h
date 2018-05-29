@@ -21,11 +21,12 @@ public:
 private slots:
     void on_searchButton_clicked();
 
+    void on_selectMusicButton_clicked();
+
 private:
     Ui::SelectMusic *ui;
     YoutubeSearch *yt;
-    YoutubeMediaListModel *ylist;
-    QStringListModel *listModel;
+    YoutubeMediaListModel *mediaListModel;
 };
 
 #endif // SELECTMUSIC_H

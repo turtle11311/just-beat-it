@@ -32,7 +32,7 @@ QVariant YoutubeMediaListModel::data(const QModelIndex &index, int role) const
         return QVariant();
 
     if (role == Qt::DisplayRole)
-        return mlst.at(index.row()).title();
+        return QVariant::fromValue<MediaInfo>(mlst.at(index.row()));
     else
         return QVariant();
 }

@@ -10,7 +10,7 @@ export(first.depends)
 export(copydata.commands)
 QMAKE_EXTRA_TARGETS += first copydata
 
-QT       += core gui sql
+QT       += core gui sql network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -42,7 +42,8 @@ SOURCES += \
     youtubesearch.cpp \
     selectmusic.cpp \
     mediainfo.cpp \
-    youtubemedialistmodel.cpp
+    youtubemedialistmodel.cpp \
+    mediaitemdelegate.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -55,7 +56,8 @@ HEADERS += \
     youtubesearch.h \
     selectmusic.h \
     mediainfo.h \
-    youtubemedialistmodel.h
+    youtubemedialistmodel.h \
+    mediaitemdelegate.h
 
 FORMS += \
     mainwindow.ui \

@@ -59,8 +59,7 @@ void MainWindow::selectMusic()
 void MainWindow::formClose()
 {
     QWidget* widget = ui->stackedWidget->currentWidget();
+    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex() - 1);
     ui->stackedWidget->removeWidget(widget);
     delete widget;
-    ui->stackedWidget->setCurrentIndex(ui->stackedWidget->currentIndex() - 1);
-
 }
