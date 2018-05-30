@@ -18,6 +18,7 @@ public:
     ~MainWindow();
 
 private:
+
     Ui::MainWindow *ui;
 
 signals:
@@ -29,6 +30,7 @@ private slots:
     void about();
     void loginSuccess();
     void formClose();
+    void selectMusic();
 };
 
 #endif // MAINWINDOW_H

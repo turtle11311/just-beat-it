@@ -10,14 +10,14 @@ export(first.depends)
 export(copydata.commands)
 QMAKE_EXTRA_TARGETS += first copydata
 
-QT       += core gui sql
+QT       += core gui sql network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = just-beat-it
 TEMPLATE = app
 
-LIBS += -Lsources/libs/
+LIBS += -lcurl -Lsources/libs/
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -38,7 +38,12 @@ SOURCES += \
     member.cpp \
     mysql.cpp \
     about.cpp \
-    room.cpp
+    room.cpp \
+    youtubesearch.cpp \
+    selectmusic.cpp \
+    mediainfo.cpp \
+    youtubemedialistmodel.cpp \
+    mediaitemdelegate.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -47,14 +52,20 @@ HEADERS += \
     mysql.h \
     about.h \
     room.h \
-    properties.h
+    properties.h \
+    youtubesearch.h \
+    selectmusic.h \
+    mediainfo.h \
+    youtubemedialistmodel.h \
+    mediaitemdelegate.h
 
 FORMS += \
     mainwindow.ui \
     menu.ui \
     member.ui \
     about.ui \
-    room.ui
+    room.ui \
+    selectmusic.ui
 
 RESOURCES += \
     resource.qrc
