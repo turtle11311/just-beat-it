@@ -30,7 +30,7 @@ Menu::~Menu()
     delete ui;
 }
 
-void Menu::on_logoutLink_linkActivated(const QString &link)
+void Menu::on_logoutLink_linkActivated(const QString)
 {
     ui->account->setText("");
     ui->account->setVisible(false);

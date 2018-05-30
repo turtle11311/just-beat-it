@@ -4,20 +4,20 @@
 #
 #-------------------------------------------------
 
-copydata.commands = $(COPY_DIR) $$PWD/sources/ $$OUT_PWD/sources/
+copydata.commands = $(COPY_DIR) $$PWD/sources/ $$OUT_PWD/
 first.depends = $(first) copydata
 export(first.depends)
 export(copydata.commands)
 QMAKE_EXTRA_TARGETS += first copydata
 
-QT       += core gui sql network
+QT       += core gui sql network multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = just-beat-it
 TEMPLATE = app
 
-LIBS += -lcurl -Lsources/libs/
+LIBS += -lcurl -lpthread -Lsources/libs/
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -43,7 +43,11 @@ SOURCES += \
     selectmusic.cpp \
     mediainfo.cpp \
     youtubemedialistmodel.cpp \
-    mediaitemdelegate.cpp
+    mediaitemdelegate.cpp \
+    histogramwidget.cpp \
+    socket.cpp \
+    game.cpp \
+    scoreboard.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -57,7 +61,11 @@ HEADERS += \
     selectmusic.h \
     mediainfo.h \
     youtubemedialistmodel.h \
-    mediaitemdelegate.h
+    mediaitemdelegate.h \
+    histogramwidget.h \
+    socket.h \
+    game.h \
+    scoreboard.h
 
 FORMS += \
     mainwindow.ui \
@@ -65,7 +73,9 @@ FORMS += \
     member.ui \
     about.ui \
     room.ui \
-    selectmusic.ui
+    selectmusic.ui \
+    game.ui \
+    scoreboard.ui
 
 RESOURCES += \
     resource.qrc
@@ -77,4 +87,6 @@ DISTFILES += \
     sources/images/about3.png \
     sources/images/about4.png \
     sources/images/logo.png \
-    sources/tools/youtube-dl
+    sources/images/crown.png \
+    sources/tools/youtube-dl \
+    sources/tools/beat.sh
