@@ -220,6 +220,5 @@ void Room::on_startButton_clicked()
 
 void Room::back()
 {
-    refreshRoom();
-    timer.start();
+    leave();
 }
