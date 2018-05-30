@@ -23,6 +23,7 @@ private:
 
 signals:
     void updateAccount();
+    void back();
 
 private slots:
     void login();
@@ -30,7 +31,10 @@ private slots:
     void about();
     void loginSuccess();
     void formClose();
-    void selectMusic();
+    void selectMusic();   
+    void game();
+    void scoreboard();
+    void backRoom();
 };
 
 #endif // MAINWINDOW_H

@@ -77,7 +77,7 @@ void Member::on_enterButton_clicked()
     }
 }
 
-void Member::on_registerLink_linkActivated(const QString &link)
+void Member::on_registerLink_linkActivated(const QString)
 {
     ui->enterButton->setText("註冊");
     ui->account->setText("");
