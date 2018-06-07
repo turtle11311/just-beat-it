@@ -6,7 +6,7 @@
 ※ Package needed:
 
 1. git
-2. Qt version 5.9.4 & qmake
+2. Qt version 5.9.4 with Qt Charts & qmake
 3. make
 4. gcc & g++
 5. python version 2.6, 2.7, or 3.2+
