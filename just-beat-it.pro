@@ -81,6 +81,7 @@ RESOURCES += \
     resource.qrc
 
 DISTFILES += \
+    README.md \
     sources/libs/libmysqlclient.so.18 \
     sources/images/about1.png \
     sources/images/about2.png \
