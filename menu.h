@@ -13,6 +13,7 @@ class Menu : public QWidget
 
 public:
     explicit Menu(QWidget *parent = 0);
+    void logout();
     ~Menu();
 
 signals:

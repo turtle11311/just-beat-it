@@ -10,14 +10,14 @@ export(first.depends)
 export(copydata.commands)
 QMAKE_EXTRA_TARGETS += first copydata
 
-QT       += core gui sql network multimedia
+QT       += core gui sql network multimedia charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = just-beat-it
 TEMPLATE = app
 
-LIBS += -lcurl -lpthread -Lsources/libs/
+LIBS += -lcurl -lpthread
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -81,6 +81,7 @@ RESOURCES += \
     resource.qrc
 
 DISTFILES += \
+    README.md \
     sources/libs/libmysqlclient.so.18 \
     sources/images/about1.png \
     sources/images/about2.png \

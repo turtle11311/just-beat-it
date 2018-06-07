@@ -45,11 +45,18 @@ void Member::on_enterButton_clicked()
         QVector<QVector<QVariant>> result;
         if(ui->registerLink->isVisible())
         {
-            result = db.Query("select count(*) from member where account=? and password=?" , QVector<QVariant>({ ui->account->text() , ui->password->text() }));
+            result = db.Query("select count(*) , login from member where account=? and password=?" , QVector<QVariant>({ ui->account->text() , ui->password->text() }));
             if(result[0][0].toInt() == 1)
             {
-                properties.account = ui->account->text();
-                emit loginSuccess();
+                if(result[0][1].toInt() == 0)
+                {
+                    properties.account = ui->account->text();
+                    emit loginSuccess();
+                }
+                else
+                {
+                    QMessageBox::critical(this,"","帳號已登入");
+                }
             }
             else
             {

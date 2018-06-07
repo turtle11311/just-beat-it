@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QLabel>
+#include <QtCharts>
+#include <QMap>
 #include <QMediaPlayer>
 
 namespace Ui {
@@ -32,11 +34,14 @@ private slots:
 
 private:
     Ui::ScoreBoard *ui;
+    QChart *scoresChart;
+    QChart *timeChart;
     QMediaPlayer *musicPlayer;
     QMediaPlayer *beatPlayer;
     QLabel *scoreBoard[4];
     QLabel *crowns[4];    
     QString direction;
+    QMap<int,QString> orders;
     bool reset;
     bool exit;
 };

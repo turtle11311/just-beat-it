@@ -13,6 +13,7 @@ void *setSpectrum( void *ptr )
     QVector<int> beatTime(properties.beats.toVector());
     int now = 0;
     int pos = 0;
+    QScatterSeries *timeSeries = (QScatterSeries *)w->timeChart->series().first();
     while( !w->exit )
     {
         now = w->musicPlayer->position();
@@ -24,6 +25,17 @@ void *setSpectrum( void *ptr )
         }
         while( pos < beatTime.size() - 1 && beatTime[pos] < now )
         {
+            QScatterSeries *timeSeries = (QScatterSeries *)w->timeChart->series().first();
+            timeSeries->clear();
+            QMap<int,QString>::iterator it = w->orders.begin();
+            for( int i = 0 ; i < w->orders.size() ; i++ , it++ )
+            {
+                if(properties.hits[it.value()].contains(beatTime[pos]))
+                {
+                    qDebug() << (2*i+1) << "  " << properties.hits[it.value()][beatTime[pos]]-beatTime[pos];
+                    timeSeries->append(properties.hits[it.value()][beatTime[pos]]-beatTime[pos],2*i+1);
+                }
+            }
             w->ui->spectrum->setText(w->direction.mid(beatTime[pos++] % 4, 1));
         }
     }
@@ -52,11 +64,18 @@ ScoreBoard::ScoreBoard(QWidget *parent) :
     crowns[2] = ui->crown3;
     crowns[3] = ui->crown4;
 
-    QMap<int,QString> orders;
+    scoresChart = new QChart();
+    timeChart = new QChart();
+    QCategoryAxis *axisY = new QCategoryAxis();
+    QScatterSeries *timeSeries = new QScatterSeries();
+    timeSeries->setMarkerShape(QScatterSeries::MarkerShapeCircle);
+
     for(QString id : properties.scores.keys())
     {
         orders.insert(properties.scores[id].last(),id);
     }
+    axisY->setRange(0,orders.size()*2);
+    axisY->setTickCount(orders.size()+1);
     int max = orders.lastKey();
     QMap<int,QString>::iterator it = orders.begin();
     for( int i = 3 ; i >= 0 ; i-- )
@@ -66,6 +85,12 @@ ScoreBoard::ScoreBoard(QWidget *parent) :
             scoreBoard[i]->setVisible(true);
             crowns[i]->setVisible(it.key()==max);
             scoreBoard[i]->setText(it.value().leftJustified(15,' ') + QString::number(it.key()).rightJustified(10,' '));
+            QLineSeries *scoreSeries = new QLineSeries();
+            scoreSeries->setName(it.value());
+            for( QMap<int,int>::iterator itscore = properties.scores[it.value()].begin() ; itscore != properties.scores[it.value()].end() ; itscore++ )
+                scoreSeries->append(itscore.key(),itscore.value());
+            scoresChart->addSeries(scoreSeries);
+            axisY->append(it.value(),2*(orders.size()-1-i)+2);
             it++;
         }
         else
@@ -74,6 +99,27 @@ ScoreBoard::ScoreBoard(QWidget *parent) :
             crowns[i]->setVisible(false);
         }
     }
+    scoresChart->createDefaultAxes();
+    scoresChart->axisX()->setLabelsVisible(false);
+    ((QValueAxis*)scoresChart->axisX())->setTickCount(2);
+    scoresChart->axisY()->setLabelsVisible(false);
+    scoresChart->axisY()->setMax(properties.beats.size()*2);
+    ((QValueAxis*)scoresChart->axisY())->setTickCount(2);
+    scoresChart->legend()->setVisible(true);
+    scoresChart->legend()->setAlignment(Qt::AlignBottom);
+    ui->scoresChartView->setChart(scoresChart);
+    ui->scoresChartView->setRenderHint(QPainter::Antialiasing);
+
+    timeChart->addSeries(timeSeries);
+    timeChart->createDefaultAxes();
+    timeChart->axisX()->setRange(0,1000);
+    ((QValueAxis*)timeChart->axisX())->setLabelFormat("%d");
+    ((QValueAxis*)timeChart->axisX())->setTickCount(11);
+    timeChart->setAxisY(axisY,timeSeries);
+    timeChart->legend()->setVisible(false);
+    ui->timeChartView->setChart(timeChart);
+    ui->timeChartView->setRenderHint(QPainter::Antialiasing);
+
 
     QFileInfo *music = new QFileInfo( "./sources/music/" + properties.musicID + ".wav" );
     QFileInfo *beat = new QFileInfo( "./sources/music/" + properties.musicID + "-beat.wav" );
@@ -142,6 +188,7 @@ void ScoreBoard::on_playButton_clicked()
     {
         musicPlayer->play();
         beatPlayer->play();
+        reset = true;
     }
 }
 
