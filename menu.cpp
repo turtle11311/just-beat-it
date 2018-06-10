@@ -1,6 +1,8 @@
 #include "menu.h"
 #include "properties.h"
 #include "ui_menu.h"
+#include "mysql.h"
+#include <QMessageBox>
 
 extern Properties properties;
 
@@ -19,29 +21,57 @@ Menu::Menu(QWidget *parent) :
 
 void Menu::loginSuccess()
 {
-    ui->account->setText(properties.account);
-    ui->account->setVisible(true);
-    ui->logoutLink->setVisible(true);
-    ui->mainButton->setText("遊戲大廳");
+   try
+    {
+        MySQL db;
+        db.Query("update member set login=1 where account=?" , QVector<QVariant>{ properties.account });
+        ui->account->setText(properties.account);
+        ui->account->setVisible(true);
+        ui->logoutLink->setVisible(true);
+        ui->mainButton->setText("遊戲大廳");
+    }
+    catch(SQLException ex)
+    {
+        QMessageBox::critical(this,"Database Error",ex.message);
+    }
+}
+
+void Menu::logout()
+{
+    try
+    {
+        if(!properties.account.isEmpty())
+        {
+            MySQL db;
+            db.Query("update member set login=0 where account=?" , QVector<QVariant>{ properties.account });
+            ui->account->setText("");
+            ui->account->setVisible(false);
+            ui->logoutLink->setVisible(false);
+            ui->mainButton->setText("登入");
+            properties.account = "";
+        }
+    }
+    catch(SQLException ex)
+    {
+        QMessageBox::critical(this,"Database Error",ex.message);
+    }
 }
 
 Menu::~Menu()
 {
+    logout();
     delete ui;
 }
 
-void Menu::on_logoutLink_linkActivated(const QString &link)
+
+void Menu::on_logoutLink_linkActivated(const QString)
 {
-    ui->account->setText("");
-    ui->account->setVisible(false);
-    ui->logoutLink->setVisible(false);
-    ui->mainButton->setText("登入");
-    properties.account = "";
+    logout();
 }
 
 void Menu::on_mainButton_clicked()
 {
-    if(ui->logoutLink->isVisible())
+    if(!properties.account.isEmpty())
     {
         emit room();
     }

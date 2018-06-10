@@ -20,7 +20,7 @@ signals:
 
 private slots:
     void on_enterButton_clicked();
-    void on_registerLink_linkActivated(const QString &link);
+    void on_registerLink_linkActivated(const QString);
 
 private:
     Ui::Member *ui;

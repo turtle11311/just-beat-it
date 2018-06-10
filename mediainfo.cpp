@@ -3,7 +3,7 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
-#include <QDebug>
+#include <>
 
 MediaInfo::MediaInfo(QObject *parent)
     : QObject(parent)

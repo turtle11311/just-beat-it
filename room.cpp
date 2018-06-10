@@ -20,7 +20,9 @@ Room::Room(QWidget *parent) :
     refreshRoom();
     timer.setInterval(10);
     timer.setSingleShot(false);
-    connect(&timer,SIGNAL(timeout()),this,SLOT(timeout()));    
+    connect(&timer,SIGNAL(timeout()),this,SLOT(timeout()));
+    connect(this,SIGNAL(play()),parent,(SLOT(game())));
+    connect(parent,SIGNAL(back()),this,(SLOT(back())));
     connect(ui->exitButton,SIGNAL(clicked()),parent,SLOT(formClose()));
     connect(ui->musicButton,SIGNAL(clicked()),parent,SLOT(selectMusic()));
     ui->players->setVisible(false);
@@ -38,7 +40,7 @@ void Room::leave()
     {
         if(timer.isActive())timer.stop();
         ui->players->setVisible(false);
-        if(!properties.room.isEmpty())
+        if(!properties.room.isEmpty() && !properties.account.isEmpty())
         {
             MySQL db;
             QString result = db.Query("select LeaveRoom( ? , ? )" , QVector<QVariant>{ properties.room , properties.account })[0][0].toString();
@@ -93,7 +95,8 @@ void Room::refreshPlayer()
         QStringList list;
         for( int i = 0 ; i < 4 ; i++ )
         {
-            list.append(result[0][i].toString());
+            if(result[0][i].toString().length() > 0)
+                list.append(result[0][i].toString());
         }
         model->setStringList(list);
         ui->playerList->setModel(model);
@@ -119,7 +122,19 @@ void Room::refreshPlayer()
         ui->players->setVisible(true);
         if(result[0][6].toInt() == 1)
         {
-            ui->music->setText("PLAY");
+            properties.scores.clear();
+            properties.hits.clear();
+            for( int i = 0 ; i < 4 ; i++ )
+            {
+                if(result[0][i].toString().length() > 0)
+                {
+                    properties.scores.insert(result[0][i].toString(),QMap<int,int>());
+                    properties.scores[result[0][i].toString()].insert(0,0);
+                    properties.hits.insert(result[0][i].toString(),QMap<int,int>());
+                }
+            }
+            timer.stop();
+            emit play();
         }
     }
     catch(SQLException ex)
@@ -201,4 +216,9 @@ void Room::on_startButton_clicked()
     {
         QMessageBox::critical(this,"Database Error",ex.message);
     }
+}
+
+void Room::back()
+{
+    leave();
 }

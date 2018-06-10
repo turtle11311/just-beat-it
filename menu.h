@@ -13,6 +13,7 @@ class Menu : public QWidget
 
 public:
     explicit Menu(QWidget *parent = 0);
+    void logout();
     ~Menu();
 
 signals:
@@ -21,7 +22,7 @@ signals:
 
 private slots:
     void loginSuccess();
-    void on_logoutLink_linkActivated(const QString &link);
+    void on_logoutLink_linkActivated(const QString);
     void on_mainButton_clicked();
 
 private:
