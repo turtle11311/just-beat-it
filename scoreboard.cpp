@@ -32,7 +32,6 @@ void *setSpectrum( void *ptr )
             {
                 if(properties.hits[it.value()].contains(beatTime[pos]))
                 {
-                    qDebug() << (2*i+1) << "  " << properties.hits[it.value()][beatTime[pos]]-beatTime[pos];
                     timeSeries->append(properties.hits[it.value()][beatTime[pos]]-beatTime[pos],2*i+1);
                 }
             }

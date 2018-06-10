@@ -43,7 +43,6 @@ void Menu::logout()
         if(!properties.account.isEmpty())
         {
             MySQL db;
-            qDebug() << "update member set login=0 where account=?";
             db.Query("update member set login=0 where account=?" , QVector<QVariant>{ properties.account });
             ui->account->setText("");
             ui->account->setVisible(false);

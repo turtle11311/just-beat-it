@@ -44,7 +44,6 @@ void Room::leave()
         {
             MySQL db;
             QString result = db.Query("select LeaveRoom( ? , ? )" , QVector<QVariant>{ properties.room , properties.account })[0][0].toString();
-            qDebug() << "select LeaveRoom( ? , ? )";
             if( result != "Success" )
             {
                 QMessageBox::critical(this,"",result);
