@@ -59,7 +59,6 @@ void *communication( void *ptr )
                 QVector<QString> detail = message.split(",").toVector();
                 for( int i = 0 ; i < detail.length() ; i += 2 )
                 {
-                    qDebug() <<detail[i]<<detail[i].leftJustified(15,' ') + detail[i+1].rightJustified(10,' ');
                     properties.scores[detail[i]].insert(next,detail[i+1].toInt());
                     w->scoreBoard[i/2]->setText(detail[i].leftJustified(15,' ') + detail[i+1].rightJustified(10,' '));
                 }
@@ -83,6 +82,7 @@ void *communication( void *ptr )
     catch(SocketException ex)
     {
         qDebug() << ex.message;
+        exit(1);
     }
     emit w->finish();
     return NULL;
@@ -144,8 +144,8 @@ Game::Game(QWidget *parent) :
             process->waitForFinished();
             if ( process->exitCode() != 0 )
             {
-                qWarning() << "Error:" << process->errorString();
-                return;
+                qDebug() << "Error:" << process->errorString();
+                exit(1);
             }
         }
 
@@ -153,12 +153,13 @@ Game::Game(QWidget *parent) :
         process->waitForFinished();
         if ( process->exitCode() != 0 )
         {
-            qWarning() << "Error:" << process->errorString();
-            return;
-        }
+            qDebug() << "Error:" << process->errorString();
+            exit(1);
+       }
         QFile file("./sources/music/" + properties.musicID + "-beat.txt");
         if(!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
             qDebug()<<"Can't open the file!"<<endl;
+            exit(1);
         }
         properties.beats.clear();
         hitBuffer.clear();
@@ -188,6 +189,7 @@ Game::Game(QWidget *parent) :
     catch(SocketException ex)
     {
         qDebug() << ex.message;
+        exit(1);
     }
 
 }

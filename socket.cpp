@@ -21,7 +21,6 @@ void Socket::Connect()
     addr.sin_port = htons(981);
 
     int err = connect(fd,(struct sockaddr *)&addr,sizeof(addr));
-    qDebug()<<err;
 
     if( err == -1){
         throw SocketException("Fail to Connect");
