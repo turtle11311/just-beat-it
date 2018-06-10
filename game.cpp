@@ -14,6 +14,8 @@ void *detectSpectrum( void *ptr )
     Game *w = (Game*)ptr;
     int now = 0;
     QQueue<int> beatTime(properties.beats);
+    w->musicPlayer->play();
+    w->beatPlayer->play();
     while( !beatTime.isEmpty() )
     {
         now = w->musicPlayer->position();
@@ -179,8 +181,6 @@ Game::Game(QWidget *parent) :
         message =  socket.Recv(1024);
         qDebug() << message << " " << message.length();
 
-        musicPlayer->play();
-        beatPlayer->play();
         pthread_t thread1,thread2;
         pthread_create(&thread1, NULL , detectSpectrum , (void*) this);
         pthread_create(&thread2, NULL , communication , (void*) this);
