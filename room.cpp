@@ -40,10 +40,11 @@ void Room::leave()
     {
         if(timer.isActive())timer.stop();
         ui->players->setVisible(false);
-        if(!properties.room.isEmpty())
+        if(!properties.room.isEmpty() && !properties.account.isEmpty())
         {
             MySQL db;
             QString result = db.Query("select LeaveRoom( ? , ? )" , QVector<QVariant>{ properties.room , properties.account })[0][0].toString();
+            qDebug() << "select LeaveRoom( ? , ? )";
             if( result != "Success" )
             {
                 QMessageBox::critical(this,"",result);

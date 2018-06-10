@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     setFixedSize(width(),height());
     setWindowTitle("Just Beat it");
+    setWindowFlags(Qt::WindowTitleHint | Qt::WindowMinimizeButtonHint);
     ui->stackedWidget->addWidget(new Menu(this));
     connect(this,SIGNAL(updateAccount()),ui->stackedWidget->currentWidget(),SLOT(loginSuccess()));
 }
