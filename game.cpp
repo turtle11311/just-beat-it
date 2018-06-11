@@ -231,9 +231,6 @@ void Game::keyPressEvent(QKeyEvent *event)
         case Qt::Key_Right:
             hit = 3;
             break;
-        case Qt::Key_Space:
-            hit = lastBeat % 4;
-            break;
         default:
             hit = -1;
             break;
