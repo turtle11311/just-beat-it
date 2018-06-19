@@ -37,5 +37,5 @@
 6. qmake [projectFolderPath]/just-beat-it.pro
 7. make
 8. rm Makefile *.o *.h *.cpp
-9. execute just-bit-it(remember to change current dir to [targetFolderPath] before running the game if execute with terminal)
+9. execute just-beat-it(remember to change current dir to [targetFolderPath] before running the game if execute with terminal)
 
